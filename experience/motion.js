@@ -1,4 +1,5 @@
 import {equipment} from '../site-data.js';
+import {icons,setLabel} from './icons.js';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],reduce=matchMedia('(prefers-reduced-motion:reduce)');
 const lowPower=()=>navigator.connection?.saveData||['slow-2g','2g'].includes(navigator.connection?.effectiveType)||(navigator.deviceMemory&&navigator.deviceMemory<4);
 
@@ -69,6 +70,6 @@ for(const section of $$('[data-service-scene]')){
  }
  button.addEventListener('click',load);
  const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)&&!lowPower()&&!reduce.matches){load();observer.disconnect();}},{rootMargin:'160px'});observer.observe(section);
- window.addEventListener('pagehide',()=>{generation++;observer.disconnect();api?.dispose();api=null;loaded=false;section.classList.remove('is-ready');delete section.dataset.loaded;section.querySelector('.service-lab-canvas').hidden=true;section.querySelector('.service-lab-controls').hidden=true;section.querySelector('.service-lab-parts').replaceChildren();button.hidden=false;button.disabled=false;button.textContent='Ativar demonstração 3D ↗';});
+ window.addEventListener('pagehide',()=>{generation++;observer.disconnect();api?.dispose();api=null;loaded=false;section.classList.remove('is-ready');delete section.dataset.loaded;section.querySelector('.service-lab-canvas').hidden=true;section.querySelector('.service-lab-controls').hidden=true;section.querySelector('.service-lab-parts').replaceChildren();button.hidden=false;button.disabled=false;setLabel(button,'Ativar demonstração 3D',icons.upRight);});
  window.addEventListener('pageshow',event=>{if(event.persisted)observer.observe(section)});
 }

@@ -43,7 +43,9 @@ $$('[data-hours]').forEach(el=>{el.replaceChildren(document.createTextNode(conta
 const header=$('.header'),menu=$('#mobile-menu'),menuToggle=$('.menu-toggle');
 function updateHeader(){header.classList.toggle('is-scrolled',window.scrollY>40);}
 updateHeader();window.addEventListener('scroll',updateHeader,{passive:true});
-menuToggle.addEventListener('click',()=>{menu.showModal();menuToggle.setAttribute('aria-expanded','true');document.body.classList.add('modal-open');});
+// Toque/clique: foco no próprio menu (sem anel de foco no logo). Teclado: foco no primeiro link, como antes.
+menu.tabIndex=-1;
+menuToggle.addEventListener('click',e=>{menu.showModal();if(e.detail>0)menu.focus({preventScroll:true});menuToggle.setAttribute('aria-expanded','true');document.body.classList.add('modal-open');});
 $('.menu-close').addEventListener('click',()=>menu.close());
 menu.addEventListener('click',e=>{if(e.target===menu&&e.clientX<menu.getBoundingClientRect().left)menu.close();if(e.target.closest('a'))menu.close();});
 menu.addEventListener('close',()=>{menuToggle.setAttribute('aria-expanded','false');document.body.classList.remove('modal-open');menuToggle.focus({preventScroll:true});});

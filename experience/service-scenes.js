@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {icons,setLabel} from './icons.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 import {createTechnicalScene} from '../diagnostics/technical-scenes.js';
@@ -46,7 +47,7 @@ export async function mountServiceScene(section,reduce){
  let raf=0,visible=false,disposed=false,last=0,frames=0,demonstration=0,ambientUntil=0,progress=0;
  const request=()=>{if(!raf&&!disposed&&visible&&!document.hidden)raf=requestAnimationFrame(render)};
  function render(now){raf=0;if(disposed||!visible||document.hidden)return;if(now-last<1000/30-1){request();return}last=now;let animating=false;
-  if(demonstration){progress=Math.min(1,(now-demonstration)/2600);lesson.setProgress(progress);range.value=Math.round(progress*100);if(mode==='brakes')lesson.parts.disc.object.rotation.z=(1-(1-progress)**3)*Math.PI*2;if(progress<1)animating=true;else{demonstration=0;play.textContent='Demonstrar novamente ↻';}}
+  if(demonstration){progress=Math.min(1,(now-demonstration)/2600);lesson.setProgress(progress);range.value=Math.round(progress*100);if(mode==='brakes')lesson.parts.disc.object.rotation.z=(1-(1-progress)**3)*Math.PI*2;if(progress<1)animating=true;else{demonstration=0;setLabel(play,'Demonstrar novamente',icons.refresh);}}
   if(now<ambientUntil&&!reduce.matches){assembly.rotation.y=Math.sin((now-(ambientUntil-5000))/5000*Math.PI)*.08;if(mode==='brakes')lesson.parts.disc.object.rotation.z+=.005;animating=true;}
   const moving=controls.update();renderer.render(scene,camera);frames++;if(animating||moving)request();
  }
@@ -54,7 +55,7 @@ export async function mountServiceScene(section,reduce){
  const ro=new ResizeObserver(resize);ro.observe(host);resize();
  const io=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){if(!frames&&!reduce.matches)ambientUntil=performance.now()+5000;request()}else{cancelAnimationFrame(raf);raf=0}});io.observe(host);
  const visibility=()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0}else request()};document.addEventListener('visibilitychange',visibility);
- const motionChange=()=>{controls.enableDamping=!reduce.matches;if(reduce.matches){ambientUntil=0;demonstration=0;play.textContent='Demonstrar movimento ↻';request()}};reduce.addEventListener('change',motionChange);
+ const motionChange=()=>{controls.enableDamping=!reduce.matches;if(reduce.matches){ambientUntil=0;demonstration=0;setLabel(play,'Demonstrar movimento',icons.refresh);request()}};reduce.addEventListener('change',motionChange);
  controls.addEventListener('change',request);controls.addEventListener('start',()=>{ambientUntil=0;demonstration=0;request()});
  canvas.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();ambientUntil=0;assembly.rotation[e.key==='ArrowLeft'||e.key==='ArrowRight'?'y':'x']+=(e.key==='ArrowLeft'||e.key==='ArrowUp'?-1:1)*.12;request()});
  const partUI=ui.querySelector('.service-lab-parts'),explanation=ui.querySelector('.service-lab-explanation');

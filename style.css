@@ -62,7 +62,7 @@
 @media(max-width:560px){.home-page main .container{width:calc(100% - 40px)}}
 /* Rodapé comum: legível (12 px no mínimo) e a nota única sobre IA. */
 .footer-grid h2,.footer-grid p,.footer-grid a:not(.logo),.footer-bottom{font-size:12px}
-.footer-ai-note p{margin:16px 0 0;font-size:12px;color:#8e8b85}
+
 /* Fotos dos equipamentos: mesmo padrão em todas as páginas (4:3, mesmo raio, sombra e espaçamento; legenda abaixo). */
 .real-photo{margin:0;width:100%;max-width:560px;justify-self:center;align-self:center}
 .real-photo-frame{aspect-ratio:4/3;overflow:hidden;border-radius:8px;box-shadow:0 12px 32px rgba(17,17,17,.14);background:#2b2b2b}
@@ -131,3 +131,15 @@
 @media(max-width:800px){.reviews-short-inner{grid-template-columns:1fr;gap:24px}.reviews-cta{padding:28px;flex-direction:column;align-items:stretch;text-align:center}.reviews-cta-actions,.reviews-cta-actions .reviews-actions{flex-direction:column}.reviews-cta h3{font-size:26px}}
 @media(max-width:700px){.review-prints{columns:1}}
 @media(prefers-reduced-motion:reduce){.review-print-open{transition:none}}
+
+/* Ícones SVG no lugar de caracteres de seta (o iOS desenha setas Unicode como emoji). */
+html{font-variant-emoji:text}
+.icon{display:inline-block;vertical-align:-0.12em;flex:none;overflow:visible}
+/* Celular e tablet: cabeçalho fixo 100% opaco (sem conteúdo vazando por trás) e sem anel de foco ao tocar. */
+@media(max-width:1024px){
+ .header{background:#f4f2ee!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+ .home-page .header:not(.is-scrolled),.diagnostic-page .header:not(.is-scrolled),.home-page.journey-active .header{background:#171d20!important}
+}
+a,button{-webkit-tap-highlight-color:transparent}
+:focus:not(:focus-visible){outline:none}
+.mobile-menu:focus{outline:none}
