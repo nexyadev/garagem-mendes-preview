@@ -140,7 +140,7 @@ function syncStory(){
   window.ScrollTrigger.refresh();window.scrollTo({top:scrollBefore,behavior:'instant'});
 }
 guideButton.addEventListener('click',()=>{const before=experience.getBoundingClientRect().top;guideEnabled=!guideEnabled;syncStory();const after=experience.getBoundingClientRect().top;window.scrollBy({top:after-before,behavior:'instant'});});
-skip.addEventListener('click',()=>{window.location.assign('/garagem-mendes-preview/servicos/');});
+skip.addEventListener('click',()=>{window.location.assign('/servicos/');});
 guideMedia.addEventListener('change',syncStory);
 window.addEventListener('pagehide',()=>{generation++;clearTimeout(touchTimer);stopStory();viewer?.dispose();viewer=null;});
 window.addEventListener('pageshow',e=>{if(e.persisted){loading=false;fallback('VISUALIZAÇÃO PAUSADA · TOQUE PARA CARREGAR NOVAMENTE');}});

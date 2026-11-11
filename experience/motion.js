@@ -5,7 +5,7 @@ const lowPower=()=>navigator.connection?.saveData||['slow-2g','2g'].includes(nav
 
 // Cross-document view transitions preserve genuine static links and browser history.
 const selected=sessionStorage.getItem('gm-service-image');
-if(selected&&location.pathname==='/garagem-mendes-preview/servicos/'+selected+'/')$('.service-main-photo')?.style.setProperty('view-transition-name','service-image');
+if(selected&&location.pathname==='/servicos/'+selected+'/')$('.service-main-photo')?.style.setProperty('view-transition-name','service-image');
 for(const link of $$('[data-service-link]'))link.addEventListener('click',event=>{
  if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||reduce.matches)return;
  $$('.service-main-photo,[data-shared-image]').forEach(el=>el.style.setProperty('view-transition-name','none'));
@@ -19,8 +19,8 @@ if(dialog){
   const e=equipment.find(e=>e.slug===button.dataset.equipment);if(!e)return;equipmentOrigin=button;
   const original=button.querySelector('img'),image=dialog.querySelector('img');image.src=original.dataset.full||original.src;image.alt=original.alt;
   $('#equipment-dialog-title').textContent=e.name;dialog.querySelector('[data-equipment-benefit]').textContent=e.benefit;
-  dialog.querySelector('.equipment-disclaimer').textContent=original.src.includes('/garagem-mendes-preview/equipamentos/')?'Equipamento da oficina.':'Fotografia ilustrativa de referência. O equipamento utilizado pela oficina pode ter outro modelo.';
-  dialog.querySelector('[data-equipment-service]').href='/garagem-mendes-preview/servicos/'+e.service+'/';dialog.showModal();document.body.classList.add('modal-open');
+  dialog.querySelector('.equipment-disclaimer').textContent=original.src.includes('/equipamentos/')?'Equipamento da oficina.':'Fotografia ilustrativa de referência. O equipamento utilizado pela oficina pode ter outro modelo.';
+  dialog.querySelector('[data-equipment-service]').href='/servicos/'+e.service+'/';dialog.showModal();document.body.classList.add('modal-open');
  });
  dialog.querySelector('button').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
  dialog.addEventListener('close',()=>{document.body.classList.remove('modal-open');equipmentOrigin?.focus({preventScroll:true});});

@@ -3,7 +3,7 @@
 // Etapas de serviço usam nome e introdução oficiais de site-data.js (slug real).
 // Para remontar o vídeo: node tools/build-journey-video.cjs && npm run build
 export const journeyVideo={
- base:'/garagem-mendes-preview/assets/journey-video/',
+ base:'/assets/journey-video/',
  desktop:'web-720.mp4',mobile:'web-480.mp4',desktopWebm:'web-720.webm',mobileWebm:'web-480.webm',poster:'poster.jpg',
  length:8, // altura do bloco em telas
  steps:[
